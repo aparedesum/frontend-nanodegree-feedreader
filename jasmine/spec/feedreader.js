@@ -107,7 +107,7 @@ $(function() {
             expect(feed).not.toBeFalsy();
 
             var entries = feed.find('.entry');
-            expect(feed).not.toBeFalsy();
+            expect(entries).not.toBeFalsy();
 
             expect(entries.length >= 1).toBe(true);
             done();
@@ -123,10 +123,31 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 
+        var first;
+        var second;
+
         beforeEach(function(done) {
-            loadFeed(0, done);
+            
+            loadFeed(0, function(){
+                
+                first = $('.feed'); 
+
+                loadFeed(1, function(){
+                    second = $('.feed');
+                    done();
+                });
+            });
+
+        });
+
+        it('ensures that the content changes', function(done){
+            
+            expect(first).not.toBeFalsy();
+            expect(second).not.toBeFalsy();
+            
+            done();
+                
         });
 
     });
-
 }());
