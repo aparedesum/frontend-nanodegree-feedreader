@@ -100,7 +100,7 @@ $(function() {
             loadFeed(0, done);
         });
 
-        it('ensures there is at least a single .entry elemente within the .feed container', function(done) {
+        it('ensures there is at least a single .entry elemente within the .feed container', function() {
             var feed = $('.feed');
             expect(feed).not.toBeFalsy();
 
@@ -108,7 +108,6 @@ $(function() {
             expect(entries).not.toBeFalsy();
 
             expect(entries.length >= 1).toBe(true);
-            done();
         });
 
     });
@@ -129,10 +128,11 @@ $(function() {
 
             loadFeed(0, function() {
 
-                beforeContainer = $('.feed');
-
+                beforeContainer = $('.feed').html();
+				console.log(beforeContainer);
                 loadFeed(1, function() {
-                    afterContainer = $('.feed');
+                    afterContainer = $('.feed').html();
+					console.log(afterContainer);
                     done();
                 });
             });
@@ -142,7 +142,7 @@ $(function() {
         it('ensures that the content changes', function(done) {
             expect(beforeContainer).not.toBeFalsy();
             expect(afterContainer).not.toBeFalsy();
-            expect(beforeContainer != afterContainer).toBe(true);
+            expect(beforeContainer).not.toEqual(afterContainer);
             done();
         });
     });
