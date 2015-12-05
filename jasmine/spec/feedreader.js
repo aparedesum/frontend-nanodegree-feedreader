@@ -84,8 +84,6 @@ $(function() {
             menuIcon.trigger('click');
             expect(body.hasClass('menu-hidden')).toBe(true);
         });
-
-
     });
 
     /* Write a new test suite named "Initial Entries" */
@@ -99,6 +97,7 @@ $(function() {
          */
 
         beforeEach(function(done) {
+			expect(allFeeds.length > 0).toBe(true);
             loadFeed(0, done);
         });
 
@@ -123,31 +122,29 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 
-        var first;
-        var second;
+        var beforeContainer;
+        var afterContainer;
 
         beforeEach(function(done) {
+            expect(allFeeds.length > 0).toBe(true);
             
             loadFeed(0, function(){
                 
-                first = $('.feed'); 
+                beforeContainer = $('.feed'); 
 
                 loadFeed(1, function(){
-                    second = $('.feed');
+                    afterContainer = $('.feed');
                     done();
                 });
             });
 
         });
 
-        it('ensures that the content changes', function(done){
-            
-            expect(first).not.toBeFalsy();
-            expect(second).not.toBeFalsy();
-            
+        it('ensures that the content changes', function(done){            
+            expect(beforeContainer).not.toBeFalsy();
+            expect(afterContainer).not.toBeFalsy();
+			expect(beforeContainer!=afterContainer).toBe(true);
             done();
-                
         });
-
     });
 }());
