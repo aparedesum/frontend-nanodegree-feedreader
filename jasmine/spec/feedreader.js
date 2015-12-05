@@ -129,10 +129,8 @@ $(function() {
             loadFeed(0, function() {
 
                 beforeContainer = $('.feed').html();
-				console.log(beforeContainer);
                 loadFeed(1, function() {
                     afterContainer = $('.feed').html();
-					console.log(afterContainer);
                     done();
                 });
             });
